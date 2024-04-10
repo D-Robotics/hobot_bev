@@ -17,10 +17,18 @@ BEV感知算法是使用地平线[OpenExplorer](https://developer.horizon.ai/api
 
 在RDK系统的终端中运行如下指令，即可快速安装：
 
+tros foxy 版本
 ```bash
 sudo apt update
 sudo apt install -y tros-hobot-bev
 sudo apt install -y tros-websocket
+```
+
+tros humble 版本
+```bash
+sudo apt update
+sudo apt install -y tros-humble-hobot-bev
+sudo apt install -y tros-humble-websocket
 ```
 
 ## 准备回灌数据集
@@ -42,9 +50,23 @@ tar -zxvf hobot_bev_data.tar.gz -C hobot_bev_data
 
 在RDK系统的终端中运行如下指令，启动算法和可视化：
 
+tros foxy 版本
 ```shell
 # 配置tros.b环境
 source /opt/tros/setup.bash
+
+# 启动websocket服务
+ros2 launch websocket websocket_service.launch.py
+
+# 启动运行脚本，并指定数据集路径
+ros2 launch hobot_bev hobot_bev.launch.py image_pre_path:=hobot_bev_data/data
+```
+
+
+tros humble 版本
+```shell
+# 配置tros.b humble环境
+source /opt/tros/humble/setup.bash
 
 # 启动websocket服务
 ros2 launch websocket websocket_service.launch.py

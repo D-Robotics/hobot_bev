@@ -17,10 +17,18 @@ This example uses local image data as input, performs algorithm inference using 
 
 Run the following commands in the terminal of the RDK system for quick installation:
 
+tros foxy:
 ```bash
 sudo apt update
 sudo apt install -y tros-hobot-bev
 sudo apt install -y tros-websocket
+```
+
+tros humble:
+```bash
+sudo apt update
+sudo apt install -y tros-humble-hobot-bev
+sudo apt install -y tros-humble-websocket
 ```
 
 ## Prepare for Data Backfilling
@@ -42,9 +50,22 @@ tar -zxvf hobot_bev_data.tar.gz -C hobot_bev_data
 
 Run the following commands in the terminal of the RDK system to start the algorithm and visualization:
 
+tros foxy:
 ```shell
 # Configure the tros.b environment
 source /opt/tros/setup.bash
+
+# Start the websocket service
+ros2 launch websocket websocket_service.launch.py
+
+# Start the execution script and specify the dataset path
+ros2 launch hobot_bev hobot_bev.launch.py image_pre_path:=hobot_bev_data/data
+```
+
+tros humble:
+```shell
+# Configure the tros.b humble environment
+source /opt/tros/humble/setup.bash
 
 # Start the websocket service
 ros2 launch websocket websocket_service.launch.py
