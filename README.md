@@ -2,7 +2,7 @@ English| [简体中文](./README_cn.md)
 
 # Function Overview
 
-BEV perception algorithm is a `BEV` multi-task model trained on the [nuscenes](https://www.nuscenes.org/nuscenes) dataset using Horizon [OpenExplorer](https://developer.horizon.ai/api/v1/fileData/horizon_j5_open_explorer_cn_doc/hat/source/examples/bev.html).
+BEV perception algorithm is a `BEV` multi-task model trained on the [nuscenes](https://www.nuscenes.org/nuscenes) dataset using [OpenExplorer](https://developer.horizon.ai/api/v1/fileData/horizon_j5_open_explorer_cn_doc/hat/source/examples/bev.html).
 
 The algorithm takes 6 sets of image data as input, including frontal, front left, front right, rear, rear left, and rear right views. The model outputs 10 categories of objects along with their corresponding 3D detection boxes, including obstacles, various types of vehicles, traffic signs, as well as semantic segmentation of lane lines, sidewalks, and road edges.
 
@@ -37,7 +37,7 @@ Run the following commands in the terminal of the RDK system to download and unz
 
 ```shell
 # Board-side dataset download
-wget http://sunrise.horizon.cc/TogetheROS/data/hobot_bev_data.tar.gz
+wget http://archive.d-robotics.cc/tros/data/hobot_bev_data.tar.gz
 
 # Unzip
 mkdir -p hobot_bev_data
