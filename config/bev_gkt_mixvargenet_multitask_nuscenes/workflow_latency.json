@@ -49,7 +49,7 @@
   "output_config": {
     "output_type": "image",
     "enable_view_output": true,
-    "enable_save_output": true,
+    "enable_save_output": false,
     "view_output_dir": "./output_dir",
     "bev_ego2img_info": [
       "qat/script/config/visible/bev/scenes.json",

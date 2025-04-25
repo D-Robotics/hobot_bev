@@ -32,6 +32,9 @@ def generate_launch_description():
     print("hobot_bev path is ", pkg_path)
 
     # args that can be set from the command line or a default will be used
+    save_image_launch_arg = DeclareLaunchArgument(
+        "save_image", default_value=TextSubstitution(text="False")
+    )
     config_file_launch_arg = DeclareLaunchArgument(
         "config_file", default_value=TextSubstitution(text=pkg_path+"/config/bev_gkt_mixvargenet_multitask_nuscenes/workflow_latency.json")
     )
@@ -42,13 +45,14 @@ def generate_launch_description():
     log_level_launch_arg = DeclareLaunchArgument(
         "log_level", default_value=TextSubstitution(text="info")
     )
-    
+
     # ros2 run hobot_bev hobot_bev --config_file=`ros2 pkg prefix hobot_bev`/lib/hobot_bev/config/bev_gkt_mixvargenet_multitask_nuscenes/workflow_latency.json
     hobot_bev_node = Node(
         package='hobot_bev',
         executable='hobot_bev',
         output='screen',
         parameters=[
+            {"save_image": LaunchConfiguration('save_image')},
             {"config_file": LaunchConfiguration('config_file')},
             {"glog_level": LaunchConfiguration('glog_level')}
         ],
@@ -67,6 +71,7 @@ def generate_launch_description():
     )
     
     return LaunchDescription([
+        save_image_launch_arg,
         config_file_launch_arg,
         glog_level_launch_arg,
         log_level_launch_arg,

@@ -2,7 +2,7 @@
 
 # 功能介绍
 
-BEV感知算法是使用[OpenExplorer](https://developer.horizon.ai/api/v1/fileData/horizon_j5_open_explorer_cn_doc/hat/source/examples/bev.html)在[nuscenes](https://www.nuscenes.org/nuscenes)数据集上训练出来的`BEV`多任务模型。
+BEV感知算法是使用OpenExplorer在[nuscenes](https://www.nuscenes.org/nuscenes)数据集上训练出来的`BEV`多任务模型。
 
 算法输入为6组图像数据，分别是前视，左前，右前，后视，左后，右后图。模型输出为10个类别的目标以及对应的3D检测框，包括障碍物、多种类型车辆、交通标志等，以及车道线、人行道、马路边缘的语义分割。
 
@@ -45,9 +45,7 @@ tar -zxvf ~/nuscenes_bev_val.tar.gz -C ~/hobot_bev_data
 # 配置tros.b humble环境
 source /opt/tros/humble/setup.bash
 
-# 启动运行脚本，并指定数据集路径
-# ros2 launch hobot_bev hobot_bev.launch.py image_pre_path:=hobot_bev_data/data
-
+# 启动运行脚本
 ln -s `ros2 pkg prefix hobot_bev`/lib/qat/ qat
 ln -s ~/hobot_bev_data/nuscenes_bev_val nuscenes_bev_val
 
@@ -66,5 +64,12 @@ ros2 launch hobot_bev hobot_bev.launch.py
 | 名称         | 消息类型                             | 说明                                     |
 | ------------ | ------------------------------------ | ---------------------------------------- |
 | /image_jpeg  | sensor_msgs/msg/Image                | 周期发布的图像话题，jpeg格式             |
+
+## 参数
+
+| 名称                         | 参数值                               | 说明                                 |
+| ---------------------------- | --------------------------------------------- | ------------------------------------------- |
+| save_image               | "True"/"False", 默认为"False" | 将渲染后的图像保存到"./render"路径                    |
+
 
 # 常见问题
