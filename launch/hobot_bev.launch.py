@@ -33,44 +33,43 @@ def generate_launch_description():
 
     # args that can be set from the command line or a default will be used
     config_file_launch_arg = DeclareLaunchArgument(
-        "config_file", default_value=TextSubstitution(text=pkg_path+"/config/bev_ipm_base/bev_ipm_base_config.json")
+        "config_file", default_value=TextSubstitution(text=pkg_path+"/config/bev_gkt_mixvargenet_multitask_nuscenes/workflow_latency.json")
     )
-    model_file_launch_arg = DeclareLaunchArgument(
-        "model_file", default_value=TextSubstitution(text=pkg_path+"/config/model/model-c359f50c.hbm")
-    )
-    image_pre_path_launch_arg = DeclareLaunchArgument(
-        "image_pre_path", default_value=TextSubstitution(text=pkg_path+"./data/")
+    glog_level_launch_arg = DeclareLaunchArgument(
+        "glog_level", default_value=TextSubstitution(text="1")
     )
 
+    log_level_launch_arg = DeclareLaunchArgument(
+        "log_level", default_value=TextSubstitution(text="info")
+    )
+    
+    # ros2 run hobot_bev hobot_bev --config_file=`ros2 pkg prefix hobot_bev`/lib/hobot_bev/config/bev_gkt_mixvargenet_multitask_nuscenes/workflow_latency.json
     hobot_bev_node = Node(
         package='hobot_bev',
         executable='hobot_bev',
         output='screen',
         parameters=[
-            {"pkg_path": pkg_path},
             {"config_file": LaunchConfiguration('config_file')},
-            {"model_file": LaunchConfiguration('model_file')},
-            {"image_pre_path": LaunchConfiguration('image_pre_path')}
+            {"glog_level": LaunchConfiguration('glog_level')}
         ],
-        arguments=['--ros-args', '--log-level', 'warn']
+        arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')]
     )
 
-    hobot_web_node = Node(
-        package='websocket',
-        executable='websocket',
-        output='screen',
-        parameters=[
-            {"image_topic": "/image_jpeg"},
-            {"image_type": "mjpeg"},
-            {"only_show_image": True}
-        ],
-        arguments=['--ros-args', '--log-level', 'warn']
+    web_node = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory('websocket'),
+                'launch/websocket.launch.py')),
+        launch_arguments={
+            'websocket_only_show_image': 'True',
+            'image_topic': 'image_jpeg'
+        }.items()
     )
     
     return LaunchDescription([
         config_file_launch_arg,
-        model_file_launch_arg,
-        image_pre_path_launch_arg,
+        glog_level_launch_arg,
+        log_level_launch_arg,
         hobot_bev_node,
-        hobot_web_node
+        web_node
     ])

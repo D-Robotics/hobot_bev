@@ -17,14 +17,6 @@ BEV感知算法是使用[OpenExplorer](https://developer.horizon.ai/api/v1/fileD
 
 在RDK系统的终端中运行如下指令，即可快速安装：
 
-tros foxy 版本
-```bash
-sudo apt update
-sudo apt install -y tros-hobot-bev
-sudo apt install -y tros-websocket
-```
-
-tros humble 版本
 ```bash
 sudo apt update
 sudo apt install -y tros-humble-hobot-bev
@@ -37,42 +29,29 @@ sudo apt install -y tros-humble-websocket
 
 ```shell
 # 板端下载数据集
-wget http://sunrise.horizon.cc/TogetheROS/data/hobot_bev_data.tar.gz
+cd ~
+wget http://archive.d-robotics.cc/TogetheROS/data/nuscenes_bev_val/nuscenes_bev_val.tar.gz
 
 # 解压缩
-mkdir -p hobot_bev_data
-tar -zxvf hobot_bev_data.tar.gz -C hobot_bev_data
-
-# 解压完成后数据集在hobot_bev_data/data路径下
+mkdir -p ~/hobot_bev_data
+tar -zxvf ~/nuscenes_bev_val.tar.gz -C ~/hobot_bev_data
 ```
 
 ## 启动算法和图像可视化
 
 在RDK系统的终端中运行如下指令，启动算法和可视化：
 
-tros foxy 版本
-```shell
-# 配置tros.b环境
-source /opt/tros/setup.bash
-
-# 启动websocket服务
-ros2 launch websocket websocket_service.launch.py
-
-# 启动运行脚本，并指定数据集路径
-ros2 launch hobot_bev hobot_bev.launch.py image_pre_path:=hobot_bev_data/data
-```
-
-
-tros humble 版本
 ```shell
 # 配置tros.b humble环境
 source /opt/tros/humble/setup.bash
 
-# 启动websocket服务
-ros2 launch websocket websocket_service.launch.py
-
 # 启动运行脚本，并指定数据集路径
-ros2 launch hobot_bev hobot_bev.launch.py image_pre_path:=hobot_bev_data/data
+# ros2 launch hobot_bev hobot_bev.launch.py image_pre_path:=hobot_bev_data/data
+
+ln -s `ros2 pkg prefix hobot_bev`/lib/qat/ qat
+ln -s ~/hobot_bev_data/nuscenes_bev_val nuscenes_bev_val
+
+ros2 launch hobot_bev hobot_bev.launch.py
 ```
 
 启动成功后，打开同一网络电脑的浏览器，访问RDK的IP地址http://IP:8000（IP为RDK的IP地址），即可看到算法可视化的实时效果：
@@ -87,12 +66,5 @@ ros2 launch hobot_bev hobot_bev.launch.py image_pre_path:=hobot_bev_data/data
 | 名称         | 消息类型                             | 说明                                     |
 | ------------ | ------------------------------------ | ---------------------------------------- |
 | /image_jpeg  | sensor_msgs/msg/Image                | 周期发布的图像话题，jpeg格式             |
-
-## 参数
-
-| 名称                         | 参数值                                          | 说明                                               |
-| ---------------------------- | ----------------------------------------------- | -------------------------------------------------- |
-| image_pre_path                 | 使用回灌数据集实际所在路径 | 回灌数据集路径                         |
-
 
 # 常见问题
