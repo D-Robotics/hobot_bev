@@ -52,7 +52,7 @@ ln -s ~/hobot_bev_data/nuscenes_bev_val nuscenes_bev_val
 ros2 launch hobot_bev hobot_bev.launch.py
 ```
 
-After successful launch, open a browser on the same network computer and visit the IP address of RDK http://IP:8000 (where IP is the IP address of RDK) to see the real-time visualization of the algorithm:
+After successful launch, open a browser on the same network computer and visit the IP address of RDK `http://IP:8000` (where IP is the IP address of RDK) to see the real-time visualization of the algorithm:
 
 ![bev](img/bev.gif)
 

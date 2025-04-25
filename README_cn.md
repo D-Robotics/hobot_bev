@@ -52,7 +52,7 @@ ln -s ~/hobot_bev_data/nuscenes_bev_val nuscenes_bev_val
 ros2 launch hobot_bev hobot_bev.launch.py
 ```
 
-启动成功后，打开同一网络电脑的浏览器，访问RDK的IP地址http://IP:8000（IP为RDK的IP地址），即可看到算法可视化的实时效果：
+启动成功后，打开同一网络电脑的浏览器，访问RDK的IP地址`http://IP:8000`（IP为RDK的IP地址），即可看到算法可视化的实时效果：
 
 ![bev](img/bev.gif)
 
