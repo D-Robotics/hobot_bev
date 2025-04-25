@@ -44,6 +44,7 @@
     "need_pre_load": false,
     "limit": 12,
     "need_loop": false,
+    "time_diff_ms": 200,
     "max_cache": 20
   },
   "output_config": {
