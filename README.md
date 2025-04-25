@@ -73,3 +73,37 @@ After successful launch, open a browser on the same network computer and visit t
 
 
 # FAQ
+
+By setting the parameters in the runtime configuration file, users can modify the backfilling process and the output of the perception results.
+
+1. Obtain the path of the runtime configuration file.
+
+On the RDK, use the following commands to query the path of the runtime configuration file:
+
+```shell
+    source /opt/tros/humble/setup.bash
+    ls `ros2 pkg prefix hobot_bev`/lib/hobot_bev/config/bev_gkt_mixvargenet_multitask_nuscenes/workflow_latency.json
+```
+
+2. Control the backfilling speed.
+
+`time_diff_ms` represents the interval time for each backfilling, and the unit is milliseconds. The default value is 200 milliseconds, that is, data is backfilled every 200 milliseconds.
+
+```json
+    "time_diff_ms": 200
+```
+
+3. Save the algorithm output and the rendering results of the images.
+
+`enable_save_output` is the switch for saving the results, and by default, the results are not saved. `view_output_dir` represents the path for saving the results, and the default value is "./output_dir".
+
+```json
+    "enable_save_output": false,
+    "view_output_dir": "./output_dir",
+```
+
+4. Set the post-processing threshold of the perception algorithm?
+
+```json
+    "score_threshold": 0.5,
+``` 

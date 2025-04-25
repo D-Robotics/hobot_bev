@@ -73,3 +73,38 @@ ros2 launch hobot_bev hobot_bev.launch.py
 
 
 # 常见问题
+
+通过设置运行时配置文件中的参数，用户可以修改回灌流程和感知结果的输出。
+
+1. 获取运行时配置文件路径。
+
+  在RDK上，使用如下命令查询运行时配置文件路径为：
+
+  ```shell
+    source /opt/tros/humble/setup.bash
+    ls `ros2 pkg prefix hobot_bev`/lib/hobot_bev/config/bev_gkt_mixvargenet_multitask_nuscenes/workflow_latency.json
+  ```
+
+2. 控制回灌速度。
+
+  `time_diff_ms表示每次回灌的间隔时间，单位为毫秒。默认为200毫秒，即每200毫秒回灌一次数据。
+
+  ```json
+    "time_diff_ms": 200
+  ```
+
+3. 保存算法输出和图片的渲染结果。
+
+  `enable_save_output`为保存结果开关，默认不保存。`view_output_dir`表示保存结果的路径，默认为"./output_dir"。
+  
+  ```json
+    "enable_save_output": false,
+    "view_output_dir": "./output_dir",
+  ```
+
+4. 设置感知算法的后处理阈值？
+
+  ```json
+    "score_threshold": 0.5,
+  ```
+
