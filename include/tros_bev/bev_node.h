@@ -28,7 +28,7 @@
 #include "rapidjson/document.h"
 #include "rapidjson/istreamwrapper.h"
 #include "rapidjson/writer.h"
-#include "bev_wrapper/bev_wrapper.h"
+#include "tros_ai_wrapper/ai_wrapper.h"
 
 class BevNode : public rclcpp::Node {
 public:
@@ -45,7 +45,7 @@ private:
     ros_publisher_compressed_ = nullptr;
 
   bool save_image_ = false;
-  BevWrapper bev_wrapper_;
+  AIWrapper ai_wrapper_;
 
   void GetRenderImgs(const std::vector<cv::Mat>& imgs, std::shared_ptr<FrameInfo> frame);
 };

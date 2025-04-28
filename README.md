@@ -53,6 +53,7 @@ Run the following commands in the terminal of the RDK system to start the algori
 source /opt/tros/humble/setup.bash
 
 # Start the websocket service
+if [ -L qat ]; then rm qat; fi
 ln -s `ros2 pkg prefix hobot_bev`/lib/qat/ qat
 ln -s ~/hobot_bev_data/nuscenes_bev_val nuscenes_bev_val
 

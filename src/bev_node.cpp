@@ -38,15 +38,15 @@ BevNode::BevNode(int argcc, char **argvv) : Node("bev_node") {
   for (int i = 0; i < argc; i++) {
     argv_char[i] = const_cast<char*>(argv[i].c_str());
   }
-  bev_wrapper_.Init(argc, argv_char);
-  bev_wrapper_.SetOutputCallback(
+  ai_wrapper_.Init(argc, argv_char);
+  ai_wrapper_.SetOutputCallback(
     std::bind(&BevNode::GetRenderImgs, this, std::placeholders::_1, std::placeholders::_2));
-  bev_wrapper_.Start();
+  ai_wrapper_.Start();
 }
 
 BevNode::~BevNode() {
   RCLCPP_INFO(this->get_logger(), "BevNode destroy");
-  bev_wrapper_.Stop();
+  ai_wrapper_.Stop();
 }
 
 void BevNode::GetRenderImgs(const std::vector<cv::Mat>& imgs, std::shared_ptr<FrameInfo> frame) {

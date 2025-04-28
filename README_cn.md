@@ -53,6 +53,8 @@ tar -zxvf ~/nuscenes_bev_val.tar.gz -C ~/hobot_bev_data
 source /opt/tros/humble/setup.bash
 
 # 启动运行脚本
+# 如果存在qat软链接，先删除
+if [ -L qat ]; then rm qat; fi
 ln -s `ros2 pkg prefix hobot_bev`/lib/qat/ qat
 ln -s ~/hobot_bev_data/nuscenes_bev_val nuscenes_bev_val
 

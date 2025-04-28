@@ -26,12 +26,12 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wl,-unresolved-symbols=ignore-in-sh
 include_directories(
   ${SRC_PATH}/include/
   ${CMAKE_CURRENT_SOURCE_DIR}/include/
-  ${CMAKE_CURRENT_SOURCE_DIR}/deps_aarch64/bev_wrapper/include/
+  ${CMAKE_CURRENT_SOURCE_DIR}/deps_aarch64/include/
 )
 
 link_directories(
   /usr/hobot/lib/
-  ${CMAKE_CURRENT_SOURCE_DIR}/deps_aarch64/bev_wrapper/lib/
+  ${CMAKE_CURRENT_SOURCE_DIR}/deps_aarch64/lib/
 )
 
 if (DSP_ON)
@@ -45,7 +45,7 @@ SET(Link_libs
         gflags
         glog
         hbucp
-        bev_wrapper
+        tros_ai_wrapper
         ${os_base_lib})
 
 add_executable(${PROJECT_NAME}
@@ -92,7 +92,7 @@ install(DIRECTORY
 )
 
 install(DIRECTORY
-  ${PROJECT_SOURCE_DIR}/deps_aarch64/bev_wrapper/lib/
+  ${PROJECT_SOURCE_DIR}/deps_aarch64/lib/
   DESTINATION lib/
 )
 
