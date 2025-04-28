@@ -8,6 +8,13 @@ The algorithm takes 6 sets of image data as input, including frontal, front left
 
 This example uses local image data as input, performs algorithm inference using BPU, publishes images of algorithm perception results, and renders them on a PC browser.
 
+# Supported Platforms
+
+| Platform                         | System                               |
+| ---------------------------- | --------------------------------------------- |
+| RDK Ultra               | Ubuntu 20.04 (Foxy) |
+| RDK S100               | Ubuntu 22.04 (Humble) |
+
 # Bill of Materials
 
 

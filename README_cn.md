@@ -8,6 +8,13 @@ BEV感知算法是使用OpenExplorer在[nuscenes](https://www.nuscenes.org/nusce
 
 此示例使用本地图像数据作为输入，利用BPU进行算法推理，发布算法感知结果渲染的图片消息，在PC端浏览器上渲染显示算法结果。
 
+# 支持平台
+
+| 平台                         | 系统                               |
+| ---------------------------- | --------------------------------------------- |
+| RDK Ultra               | Ubuntu 20.04 (Foxy) |
+| RDK S100               | Ubuntu 22.04 (Humble) |
+
 # 物料清单
 
 
@@ -96,7 +103,7 @@ ros2 launch hobot_bev hobot_bev.launch.py
 3. 保存算法输出和图片的渲染结果。
 
   `enable_save_output`为保存结果开关，默认不保存。`view_output_dir`表示保存结果的路径，默认为"./output_dir"。
-  
+
   ```json
     "enable_save_output": false,
     "view_output_dir": "./output_dir",
