@@ -31,6 +31,10 @@ def generate_launch_description():
         "lib/hobot_bev")
     print("hobot_bev path is ", pkg_path)
 
+    # print("LD_LIBRARY_PATH is ", os.environ.get('LD_LIBRARY_PATH'))
+    os.environ['LD_LIBRARY_PATH'] = os.environ.get('LD_LIBRARY_PATH') + ":" + pkg_path
+    # print("After setting LD_LIBRARY_PATH is ", os.environ.get('LD_LIBRARY_PATH'))
+
     # args that can be set from the command line or a default will be used
     save_image_launch_arg = DeclareLaunchArgument(
         "save_image", default_value=TextSubstitution(text="False")

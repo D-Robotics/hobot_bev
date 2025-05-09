@@ -93,7 +93,7 @@ install(DIRECTORY
 
 install(DIRECTORY
   ${PROJECT_SOURCE_DIR}/deps_aarch64/lib/
-  DESTINATION lib/
+  DESTINATION lib/${PROJECT_NAME}/
 )
 
 install(DIRECTORY
