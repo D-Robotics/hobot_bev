@@ -25,21 +25,21 @@
       false
     ],
     "data_list_file": [
-      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_0.lst",
-      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_1.lst",
-      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_2.lst",
-      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_3.lst",
-      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_4.lst",
-      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_5.lst",
-      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points0.lst",
-      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points1.lst",
-      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points2.lst",
-      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points3.lst",
-      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points4.lst",
-      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points5.lst",
-      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points6.lst",
-      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points7.lst",
-      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points8.lst"
+      "../../../mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_0.lst",
+      "../../../mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_1.lst",
+      "../../../mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_2.lst",
+      "../../../mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_3.lst",
+      "../../../mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_4.lst",
+      "../../../mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_5.lst",
+      "../../../mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points0.lst",
+      "../../../mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points1.lst",
+      "../../../mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points2.lst",
+      "../../../mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points3.lst",
+      "../../../mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points4.lst",
+      "../../../mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points5.lst",
+      "../../../mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points6.lst",
+      "../../../mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points7.lst",
+      "../../../mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points8.lst"
     ],
     "need_pre_load": true,
     "limit": 12,
@@ -53,6 +53,7 @@
   },
   "workflow": [
     {
+      "open_lru": true,
       "method_type": "InferMethod",
       "unique_name": "InferMethod",
       "method_config": {

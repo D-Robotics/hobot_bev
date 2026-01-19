@@ -45,6 +45,7 @@
   },
   "workflow": [
     {
+      "open_lru": true,
       "method_type": "InferMethod",
       "unique_name": "InferMethod",
       "method_config": {

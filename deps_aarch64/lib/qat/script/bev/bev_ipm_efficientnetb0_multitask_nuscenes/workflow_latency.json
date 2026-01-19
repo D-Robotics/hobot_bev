@@ -32,7 +32,7 @@
   },
   "output_config": {
     "output_type": "image",
-    "enable_view_output": true,
+    "enable_view_output": false,
     "view_output_dir": "./output_dir",
     "bev_ego2img_info": [
       "../../config/visible/bev/scenes.json",
@@ -44,6 +44,7 @@
   },
   "workflow": [
     {
+      "open_lru": true,
       "method_type": "InferMethod",
       "unique_name": "InferMethod",
       "method_config": {
