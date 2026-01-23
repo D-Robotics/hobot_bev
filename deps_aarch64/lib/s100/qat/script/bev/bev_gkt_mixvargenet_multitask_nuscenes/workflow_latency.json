@@ -1,0 +1,115 @@
+{
+  "input_config": {
+    "input_type": "batch_data",
+    "is_pyramid_input": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "data_list_file_origin": [
+      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_0.lst",
+      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_1.lst",
+      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_2.lst",
+      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_3.lst",
+      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_4.lst",
+      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/images_5.lst",
+      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points0.lst",
+      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points1.lst",
+      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points2.lst",
+      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points3.lst",
+      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points4.lst",
+      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points5.lst",
+      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points6.lst",
+      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points7.lst",
+      "qat/mini_data/nuscenes_bev/bev_gkt_mixvargenet_multitask_nuscenes/reference_points8.lst"
+    ],
+    "data_list_file": [
+      "/mnt/nfs/data/bev/qat/tools/eval_preprocess/images_0.lst",
+      "/mnt/nfs/data/bev/qat/tools/eval_preprocess/images_1.lst",
+      "/mnt/nfs/data/bev/qat/tools/eval_preprocess/images_2.lst",
+      "/mnt/nfs/data/bev/qat/tools/eval_preprocess/images_3.lst",
+      "/mnt/nfs/data/bev/qat/tools/eval_preprocess/images_4.lst",
+      "/mnt/nfs/data/bev/qat/tools/eval_preprocess/images_5.lst",
+      "/mnt/nfs/data/bev/qat/tools/eval_preprocess/reference_points0.lst",
+      "/mnt/nfs/data/bev/qat/tools/eval_preprocess/reference_points1.lst",
+      "/mnt/nfs/data/bev/qat/tools/eval_preprocess/reference_points2.lst",
+      "/mnt/nfs/data/bev/qat/tools/eval_preprocess/reference_points3.lst",
+      "/mnt/nfs/data/bev/qat/tools/eval_preprocess/reference_points4.lst",
+      "/mnt/nfs/data/bev/qat/tools/eval_preprocess/reference_points5.lst",
+      "/mnt/nfs/data/bev/qat/tools/eval_preprocess/reference_points6.lst",
+      "/mnt/nfs/data/bev/qat/tools/eval_preprocess/reference_points7.lst",
+      "/mnt/nfs/data/bev/qat/tools/eval_preprocess/reference_points8.lst"
+    ],
+    "need_pre_load": true,
+    "limit": 12,
+    "need_loop": false,
+    "max_cache": 10
+  },
+  "output_config": {
+    "output_type": "image",
+    "enable_view_output": true,
+    "enable_save_output": true,
+    "view_output_dir": "./output_dir",
+    "bev_ego2img_info": [
+      "qat/script/config/visible/bev/scenes.json",
+      "qat/script/config/visible/bev/boston.bin",
+      "qat/script/config/visible/bev/singapore.bin"
+    ],
+    "image_list_enable": true,
+    "in_order": true
+  },
+  "workflow": [
+    {
+      "method_type": "InferMethod",
+      "unique_name": "InferMethod",
+      "method_config": {
+        "core": 0,
+        "model_file": "qat/model/runtime/bev_gkt_mixvargenet_multitask_nuscenes/compile/model.hbm"
+      }
+    },
+    {
+      "thread_count": 1,
+      "method_type": "QATBevPostProcessMethod",
+      "unique_name": "QATBevPostProcessMethod",
+      "method_config": {
+        "norm_bbox": true,
+        "topk": 50,
+        "out_size_factor": 1,
+        "score_threshold": 0.1,
+        "max_pool_kernel": 3,
+        "pre_max_size": 1000,
+        "bev_size": [
+          51.2,
+          51.2,
+          0.8
+        ],
+        "ori_shape": [
+          900,
+          1600
+        ],
+        "resize_shape": [
+          540,
+          960
+        ]
+      }
+    }
+  ]
+}

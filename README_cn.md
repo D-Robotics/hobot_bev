@@ -14,6 +14,7 @@ BEV感知算法是使用OpenExplorer在[nuscenes](https://www.nuscenes.org/nusce
 | ---------------------------- | --------------------------------------------- |
 | RDK Ultra               | Ubuntu 20.04 (Foxy) |
 | RDK S100               | Ubuntu 22.04 (Humble) |
+| RDK S600               | Ubuntu 24.04 (Jazzy) |
 
 # 物料清单
 

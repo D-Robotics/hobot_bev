@@ -23,15 +23,53 @@ message("DEPS_ROOT: ${DEPS_ROOT}")
 # libdnn.so depends on system software dynamic link library, use -Wl,-unresolved-symbols=ignore-in-shared-libs to shield during compilation
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wl,-unresolved-symbols=ignore-in-shared-libs")
 
+if(DEFINED ENV{ROS_DISTRO})
+    set(PREFERRED_ROS_DISTRO $ENV{ROS_DISTRO})
+else()
+    if(EXISTS "/opt/ros/jazzy")
+        set(PREFERRED_ROS_DISTRO jazzy)
+    elseif(EXISTS "/opt/ros/humble")
+        set(PREFERRED_ROS_DISTRO humble)
+    else()
+        set(PREFERRED_ROS_DISTRO humble)
+    endif()
+endif()
+if(DEFINED PREFERRED_ROS_DISTRO)
+    message(STATUS "Preferred ROS distribution: ${PREFERRED_ROS_DISTRO}")
+endif()
+# if("${PREFERRED_ROS_DISTRO}" STREQUAL "jazzy")
+#     add_definitions(-DCV_BRIDGE_CPP)
+# endif()
+
+
+
+if(PLATFORM_S100)
+  message("build ${PROJECT_NAME} for platform S100")
+  # set(SYS_ROOT ${CMAKE_SYSROOT})
+  set(PREFIX_PATH s100)  
+elseif(PLATFORM_S600)
+  message("build ${PROJECT_NAME} for platform S600")
+  # set(SYS_ROOT ${CMAKE_SYSROOT})
+  set(PREFIX_PATH s600)
+else()
+  message("invalid platform, build platform S100 default")
+  # set(SYS_ROOT ${CMAKE_SYSROOT})
+  set(PREFIX_PATH s100)
+endif()
+
+message("CMAKE_SYSROOT is " ${CMAKE_SYSROOT})
+
+# 头文件包含目录
 include_directories(
   ${SRC_PATH}/include/
   ${CMAKE_CURRENT_SOURCE_DIR}/include/
   ${CMAKE_CURRENT_SOURCE_DIR}/deps_aarch64/include/
 )
 
+# 链接库目录（动态库.so/静态库.a，指定搜索路径）============================================修改
 link_directories(
   ${CMAKE_SYSROOT}/usr/hobot/lib/
-  ${CMAKE_CURRENT_SOURCE_DIR}/deps_aarch64/lib/
+  ${CMAKE_CURRENT_SOURCE_DIR}/deps_aarch64/lib/${PREFIX_PATH}/
 )
 
 if (DSP_ON)
@@ -92,7 +130,7 @@ install(DIRECTORY
 )
 
 install(DIRECTORY
-  ${PROJECT_SOURCE_DIR}/deps_aarch64/lib/
+  ${PROJECT_SOURCE_DIR}/deps_aarch64/lib/${PREFIX_PATH}/
   DESTINATION lib/${PROJECT_NAME}/
 )
 

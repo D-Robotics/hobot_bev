@@ -1,0 +1,77 @@
+{
+  "input_config": {
+    "input_type": "batch_data",
+    "data_list_file": [
+      "../../../data/nuscenes_bev/images_0.lst",
+      "../../../data/nuscenes_bev/images_1.lst",
+      "../../../data/nuscenes_bev/images_2.lst",
+      "../../../data/nuscenes_bev/images_3.lst",
+      "../../../data/nuscenes_bev/images_4.lst",
+      "../../../data/nuscenes_bev/images_5.lst",
+      "../../../data/nuscenes_bev/reference_points0.lst"
+    ],
+    "is_pyramid_input": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false
+    ],
+    "need_pre_load": false,
+    "limit": 12,
+    "need_loop": false,
+    "max_cache": 10
+  },
+  "output_config": {
+    "output_type": "eval",
+    "eval_enable": true,
+    "multitask_output_file": [
+      "./bev_det_eval.log",
+      "./bev_seg_eval.log"
+    ]
+  },
+  "workflow": [
+    {
+      "method_type": "InferMethod",
+      "unique_name": "InferMethod",
+      "method_config": {
+        "core": 0,
+        "model_file": "../../../model/runtime/bev_ipm_efficientnetb0_multitask_nuscenes/compile/model.hbm"
+      }
+    },
+    {
+      "thread_count": 8,
+      "method_type": "QATBevPostProcessMethod",
+      "unique_name": "QATBevPostProcessMethod",
+      "method_config": {
+        "norm_bbox": true,
+        "topk": 50,
+        "out_size_factor": 1,
+        "score_threshold": 0.1,
+        "max_pool_kernel": 3,
+        "pre_max_size": 1000,
+        "bev_size": [
+          51.2,
+          51.2,
+          0.8
+        ],
+        "ori_shape": [
+          900,
+          1600
+        ],
+        "resize_shape": [
+          540,
+          960
+        ]
+      }
+    }
+  ]
+}
