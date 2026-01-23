@@ -1,0 +1,98 @@
+{
+  "input_config": {
+    "input_type": "batch_data",
+    "is_pyramid_input": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "data_list_file": [
+      "nuscenes_bev_val/images_0.lst",
+      "nuscenes_bev_val/images_1.lst",
+      "nuscenes_bev_val/images_2.lst",
+      "nuscenes_bev_val/images_3.lst",
+      "nuscenes_bev_val/images_4.lst",
+      "nuscenes_bev_val/images_5.lst",
+      "nuscenes_bev_val/reference_points0.lst",
+      "nuscenes_bev_val/reference_points1.lst",
+      "nuscenes_bev_val/reference_points2.lst",
+      "nuscenes_bev_val/reference_points3.lst",
+      "nuscenes_bev_val/reference_points4.lst",
+      "nuscenes_bev_val/reference_points5.lst",
+      "nuscenes_bev_val/reference_points6.lst",
+      "nuscenes_bev_val/reference_points7.lst",
+      "nuscenes_bev_val/reference_points8.lst"
+    ],
+    "need_pre_load": true,
+    "limit": 12,
+    "need_loop": true,
+    "max_cache": 10
+  },
+  "output_config": {
+    "output_type": "image",
+    "enable_view_output": false,
+    "view_output_dir": "./output_dir",
+    "bev_ego2img_info": [
+      "../../config/visible/bev/scenes.json",
+      "../../config/visible/bev/boston.bin",
+      "../../config/visible/bev/singapore.bin"
+    ],
+    "image_list_enable": true,
+    "in_order": false
+  },
+  "workflow": [
+    {
+      "open_lru": true,
+      "method_type": "InferMethod",
+      "unique_name": "InferMethod",
+      "method_config": {
+        "core": 0,
+        "model_file": "../../../model/runtime/bev_gkt_mixvargenet_multitask_nuscenes/compile/model.hbm"
+      }
+    },
+    {
+      "thread_count": 1,
+      "method_type": "QATBevPostProcessMethod",
+      "unique_name": "QATBevPostProcessMethod",
+      "method_config": {
+        "norm_bbox": true,
+        "topk": 50,
+        "out_size_factor": 1,
+        "score_threshold": 0.1,
+        "max_pool_kernel": 3,
+        "pre_max_size": 1000,
+        "bev_size": [
+          51.2,
+          51.2,
+          0.8
+        ],
+        "ori_shape": [
+          900,
+          1600
+        ],
+        "resize_shape": [
+          540,
+          960
+        ]
+      }
+    }
+  ]
+}

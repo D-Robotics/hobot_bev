@@ -1,0 +1,126 @@
+{
+  "input_config": {
+    "input_type": "batch_data",
+    "data_list_file": [
+      "../../../mini_data/nuscenes_bev/bevformer_tiny_resnet50_detection_nuscenes/images_0.lst",
+      "../../../mini_data/nuscenes_bev/bevformer_tiny_resnet50_detection_nuscenes/images_1.lst",
+      "../../../mini_data/nuscenes_bev/bevformer_tiny_resnet50_detection_nuscenes/images_2.lst",
+      "../../../mini_data/nuscenes_bev/bevformer_tiny_resnet50_detection_nuscenes/images_3.lst",
+      "../../../mini_data/nuscenes_bev/bevformer_tiny_resnet50_detection_nuscenes/images_4.lst",
+      "../../../mini_data/nuscenes_bev/bevformer_tiny_resnet50_detection_nuscenes/images_5.lst",
+      "../../../mini_data/nuscenes_bev/bevformer_tiny_resnet50_detection_nuscenes/prev_points.lst",
+      "../../../mini_data/nuscenes_bev/bevformer_tiny_resnet50_detection_nuscenes/reference_points0.lst",
+      "../../../mini_data/nuscenes_bev/bevformer_tiny_resnet50_detection_nuscenes/reference_points1.lst",
+      "../../../mini_data/nuscenes_bev/bevformer_tiny_resnet50_detection_nuscenes/reference_points2.lst",
+      "../../../mini_data/nuscenes_bev/bevformer_tiny_resnet50_detection_nuscenes/reference_points3.lst"
+    ],
+    "is_pyramid_input": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "is_temporal_tensors": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "need_pre_load": true,
+    "limit": 12,
+    "need_loop": true,
+    "max_cache": 10,
+    "need_quant": true
+  },
+  "output_config": {
+    "output_type": "image",
+    "enable_view_output": false,
+    "view_output_dir": "./output_dir",
+    "bev_ego2img_info": [
+      "../../config/visible/bev/scenes.json",
+      "../../config/visible/bev/boston.bin",
+      "../../config/visible/bev/singapore.bin"
+    ],
+    "image_list_enable": true,
+    "in_order": false
+  },
+  "workflow": [
+    {
+      "open_lru": true,
+      "method_type": "InferMethod",
+      "unique_name": "InferMethod",
+      "method_config": {
+        "is_temporal_model": true,
+        "associated_prev_num": 1,
+        "temporal_input_tensors_idx": [
+          12
+        ],
+        "temporal_output_tensors_idx": [
+          0
+        ],
+        "core": 0,
+        "model_file": "../../../model/runtime/bevformer_tiny_resnet50_detection_nuscenes/compile/model.hbm"
+      }
+    },
+    {
+      "thread_count": 1,
+      "method_type": "QATBevformerPostProcessMethod",
+      "unique_name": "QATBevformerPostProcessMethod",
+      "method_config": {
+        "topk": 300,
+        "bev_range": [
+          -51.2,
+          -51.2,
+          -5.0,
+          51.2,
+          51.2,
+          3.0
+        ],
+        "post_center_range": [
+          -61.2,
+          -61.2,
+          -10.0,
+          61.2,
+          61.2,
+          10.0
+        ],
+        "ori_shape": [
+          900,
+          1600
+        ],
+        "resize_shape": [
+          450,
+          800
+        ]
+      }
+    }
+  ]
+}

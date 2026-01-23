@@ -1,0 +1,90 @@
+{
+  "input_config": {
+    "input_type": "batch_data_origin",
+    "is_pyramid_input": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "data_list_file": [
+      "../../../mini_data/nuscenes_bev/detr3d_efficientnetb3_nuscenes/images_0.lst",
+      "../../../mini_data/nuscenes_bev/detr3d_efficientnetb3_nuscenes/images_1.lst",
+      "../../../mini_data/nuscenes_bev/detr3d_efficientnetb3_nuscenes/images_2.lst",
+      "../../../mini_data/nuscenes_bev/detr3d_efficientnetb3_nuscenes/images_3.lst",
+      "../../../mini_data/nuscenes_bev/detr3d_efficientnetb3_nuscenes/images_4.lst",
+      "../../../mini_data/nuscenes_bev/detr3d_efficientnetb3_nuscenes/images_5.lst",
+      "../../../mini_data/nuscenes_bev/detr3d_efficientnetb3_nuscenes/coords0.lst",
+      "../../../mini_data/nuscenes_bev/detr3d_efficientnetb3_nuscenes/coords1.lst",
+      "../../../mini_data/nuscenes_bev/detr3d_efficientnetb3_nuscenes/coords2.lst",
+      "../../../mini_data/nuscenes_bev/detr3d_efficientnetb3_nuscenes/coords3.lst",
+      "../../../mini_data/nuscenes_bev/detr3d_efficientnetb3_nuscenes/masks.lst"
+    ],
+    "need_pre_load": true,
+    "limit": 12,
+    "need_loop": true,
+    "max_cache": 10
+  },
+  "output_config": {
+    "output_type": "image",
+    "enable_view_output": false,
+    "view_output_dir": "./output_dir",
+    "bev_ego2img_info": [
+      "../../config/visible/bev/scenes.json",
+      "../../config/visible/bev/boston.bin",
+      "../../config/visible/bev/singapore.bin"
+    ],
+    "image_list_enable": true,
+    "in_order": false
+  },
+  "workflow": [
+    {
+      "open_lru": true,
+      "method_type": "InferMethod",
+      "unique_name": "InferMethod",
+      "method_config": {
+        "core": 0,
+        "model_file": "../../../model/runtime/detr3d_efficientnetb3_nuscenes/compile/model.hbm"
+      }
+    },
+    {
+      "thread_count": 1,
+      "method_type": "QATBevDetectionPostProcessMethod",
+      "unique_name": "QATBevDetectionPostProcessMethod",
+      "method_config": {
+        "reference_points_path": "../../../mini_data/nuscenes_bev/detr3d_efficientnetb3_nuscenes/detr3d_reference_points",
+        "topk": 300,
+        "score_threshold": -1.0,
+        "bev_range": [
+          -51.2,
+          -51.2,
+          -5.0,
+          51.2,
+          51.2,
+          3.0
+        ],
+        "ori_shape": [
+          900,
+          1600
+        ],
+        "resize_shape": [
+          792,
+          1408
+        ]
+      }
+    }
+  ]
+}
